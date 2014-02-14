@@ -1,0 +1,24 @@
+{
+  "name": "toq",
+  "version": "0.0.1",
+  "description": "Generate table of contents from html based on headings in the markup.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "toq",
+    "table",
+    "of",
+    "contents",
+    "toc",
+    "html"
+  ],
+  "author": "Reimund Trost",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "~0.13.1",
+    "underscore": "~1.6.0"
+  }
+}

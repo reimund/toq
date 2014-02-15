@@ -99,7 +99,7 @@ var html = '<h1 id="1a">1st-level header</h1><p>foo</p>'
 	+ '<h2 id="2c">Another 2nd-level header</h2><p>foobar</p>';
 
 var toq = require('toq')(html, true);
-console.log(toq.toc + toq + content);
+console.log(toq.toc + toq.content);
 
 ```
 

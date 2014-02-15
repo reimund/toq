@@ -7,6 +7,8 @@ Toq can also insert section numbers in your headings (see 2nd example below).
 `npm install toq`
 
 ## Examples
+
+### Example - Basic usage
 ``` javascript
 var html = '<h1 id="1a">1st-level header</h1><p>foo</p>'
 	+ '<h2 id="2a">A 2nd-level header</h2><p>foo bar</p>'
@@ -42,6 +44,8 @@ Output:
 </ol>
 
 ```
+
+### Example - Section numbers
 
 If you want to insert section numbers into the specified html, pass true as the second argument:
 
@@ -83,5 +87,20 @@ Output:
 
 ```
 Indented for better readability.
+
+### Example - Toc + section numbers
+
+Table of contents and section numbered content:
+
+``` javascript
+var html = '<h1 id="1a">1st-level header</h1><p>foo</p>'
+	+ '<h2 id="2a">A 2nd-level header</h2><p>foo bar</p>'
+	+ '<h3 id="3a">A 3rd level header</h3><p>foo foo</p>'
+	+ '<h2 id="2c">Another 2nd-level header</h2><p>foobar</p>';
+
+var toq = require('toq')(html, true);
+console.log(toq.toc + toq + content);
+
+```
 
 ## MIT Licenced

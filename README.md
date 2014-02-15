@@ -61,14 +61,27 @@ var contents = require('toq')(html, true).contents
 Output:
 
 ``` html
-<h1 id="1a">1 1st-level header</h1><p>foo</p>
-<h2 id="2a">1.1 A 2nd-level header</h2><p>foo bar</p>
-<h2 id="2b">1.2 A 2nd-level header</h2><p>bar foo</p>
-<h2 id="2b">1.3 A 2nd-level header</h2><p>bar</p>
-<h3 id="3a">1.3.1 A 3rd level header</h3><p>foo foo</p>
-<h3 id="3b">1.3.2 A 3rd level header</h3><p>bar bar</p>
-<h2 id="2c">1.4 Another 2nd-level header</h2><p>foobar</p>
+<h1 id="1a"><span class="section-number">1</span> 1st-level header</h1>
+<p>foo</p>
+
+	<h2 id="2a"><span class="section-number">1.1</span> A 2nd-level header</h2>
+	<p>foo bar</p>
+
+	<h2 id="2b"><span class="section-number">1.2</span> A 2nd-level header</h2>
+	<p>bar foo</p>
+
+	<h2 id="2b"><span class="section-number">1.3</span> A 2nd-level header</h2>
+	<p>bar</p>
+		<h3 id="3a"><span class="section-number">1.3.1</span> A 3rd level header</h3>
+		<p>foo foo</p>
+
+		<h3 id="3b"><span class="section-number">1.3.2</span> A 3rd level header</h3>
+		<p>bar bar</p>
+
+	<h2 id="2c"><span class="section-number">1.4</span> Another 2nd-level header</h2>
+	<p>foobar</p>
 
 ```
+Indented for better readability.
 
 ## MIT Licenced

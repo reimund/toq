@@ -88,10 +88,10 @@ Toc.prototype = function()
 
 	var headingLink = function(heading, ref)
 	{
-		var html = '<span>' + ref.join('.') + '</span> <a href="#' + this.$(heading).attr('id') + '">' + this.$(heading).text() + '</a>';
+		var html = '<span>' + ref.join('.') + '</span> <a href="#' + this.$(heading).attr('id') + '">' + this.$(heading).html() + '</a>';
 		
 		if (this.sectionNumbers)
-			this.$(heading).text(ref.join('.') + ' ' + this.$(heading).text());
+			this.$(heading).html('<span class="section-number">' + ref.join('.') + '</span> ' + this.$(heading).html());
 
 		return html;
 	};

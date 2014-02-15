@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/reimund/toq.git"
+  },
   "keywords": [
     "toq",
     "table",
@@ -20,5 +23,8 @@
   "dependencies": {
     "cheerio": "~0.13.1",
     "underscore": "~1.6.0"
-  }
+  },
+  "readmeFilename": "README.md",
+  "gitHead": "81f60e1094b6275c48eebe2ea2cf38a0586c658d",
+  "devDependencies": {}
 }

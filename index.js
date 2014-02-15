@@ -98,7 +98,7 @@ Toc.prototype = function()
 
 	var _html = function()
 	{
-		return { toc: this.toc, contents: this.$.html() }
+		return { toc: this.toc, content: this.$.html() }
 	}
 
 	return {

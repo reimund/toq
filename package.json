@@ -1,6 +1,6 @@
 {
   "name": "toq",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Generate table of contents from html headings.",
   "main": "index.js",
   "scripts": {

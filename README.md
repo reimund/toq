@@ -1,13 +1,14 @@
 # toq - Table of contents generator
 Generate table of contents from html headings.
 
+Toq can also insert section numbers in your headings (see 2nd example below).
+
 ## Installation
 `npm install toq`
 
-## Example
+## Examples
 ``` javascript
-var html = '<html><body>'
-	+ '<h1 id="1a">1st-level header</h1><p>foo</p>'
+var html = '<h1 id="1a">1st-level header</h1><p>foo</p>'
 	+ '<h2 id="2a">A 2nd-level header</h2><p>foo bar</p>'
 	+ '<h2 id="2b">A 2nd-level header</h2><p>bar foo</p>'
 	+ '<h2 id="2b">A 2nd-level header</h2><p>bar</p>'
@@ -15,7 +16,7 @@ var html = '<html><body>'
 	+ '<h3 id="3b">A 3rd level header</h3><p>bar bar</p>'
 	+ '<h2 id="2c">Another 2nd-level header</h2><p>foobar</p>';
 
-var toc = require('toq')(html);
+var toc = require('toq')(html).toc;
 
 ```
 
@@ -39,6 +40,35 @@ Output:
 		</ol>
 	</li>
 </ol>
+
+```
+
+If you want to insert section numbers into the specified html, pass true as the second argument:
+
+``` javascript
+var html = '<h1 id="1a">1st-level header</h1><p>foo</p>'
+	+ '<h2 id="2a">A 2nd-level header</h2><p>foo bar</p>'
+	+ '<h2 id="2b">A 2nd-level header</h2><p>bar foo</p>'
+	+ '<h2 id="2b">A 2nd-level header</h2><p>bar</p>'
+	+ '<h3 id="3a">A 3rd level header</h3><p>foo foo</p>'
+	+ '<h3 id="3b">A 3rd level header</h3><p>bar bar</p>'
+	+ '<h2 id="2c">Another 2nd-level header</h2><p>foobar</p>';
+
+var contents = require('toq')(html, true).contents
+
+```
+
+Output:
+
+``` html
+<h1 id="1a">1 1st-level header</h1>
+<p>lala</p>
+<h2 id="2a">1.1 A 2nd-level header</h2>
+<h2 id="2b">1.2 A 2nd-level header</h2>
+<h2 id="2b">1.3 A 2nd-level header</h2>
+<h3 id="3a">1.3.1 A 3rd level header</h3><p>Majs najs</p>
+<h3 id="3b">1.3.2 A 3rd level header</h3><p>Majs najs</p>
+<h2 id="2c">1.4 Another 2nd-level header</h2>
 
 ```
 

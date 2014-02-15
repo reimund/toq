@@ -2,8 +2,14 @@ var	  cheerio = require('cheerio')
 	, _       = require('underscore')
 ;
 
-var Toc = function(text)
+var Toc = function(text, sectionNumbers)
 {
+	if (!_.isBoolean(sectionNumbers))
+		this.sectionNumbers = false;
+	else
+		this.sectionNumbers = sectionNumbers;
+
+	this.text = text;
 	this.$ = cheerio.load(text);
 	this.generate();
 };
@@ -59,7 +65,7 @@ Toc.prototype = function()
 
 		});
 
-		this.html = listify.call(self, headings, false);
+		this.toc = listify.call(self, headings, false);
 	};
 
 	var listify = function(item, isDeep)
@@ -82,18 +88,27 @@ Toc.prototype = function()
 
 	var headingLink = function(heading, ref)
 	{
-		return '<span>' + ref.join('.') + '</span> <a href="#' + this.$(heading).attr('id') + '">' + this.$(heading).text() + '</a>';
+		var html = '<span>' + ref.join('.') + '</span> <a href="#' + this.$(heading).attr('id') + '">' + this.$(heading).text() + '</a>';
+		
+		if (this.sectionNumbers)
+			this.$(heading).text(ref.join('.') + ' ' + this.$(heading).text());
+
+		return html;
 	};
+
+	var _html = function()
+	{
+		return { toc: this.toc, contents: this.$.html() }
+	}
 
 	return {
 		  generate: generate
-		, html: this.html
+		, html: _html
 	};
 }();
 
-module.exports = function(text)
+module.exports = function(text, sectionNumbers)
 {
-	var toc = new Toc(text);
-
-	return toc.html;
+	var toc = new Toc(text, sectionNumbers);
+	return toc.html();
 };

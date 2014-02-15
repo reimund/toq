@@ -1,4 +1,4 @@
-# toq - Table of contents generator in Node.js
+# toq - Table of contents generator
 Generate table of contents from html headings.
 
 ## Installation
@@ -19,7 +19,7 @@ var toc = require('toq')(html);
 
 ```
 
-The html generated:
+Output:
 
 ``` html
 <ol>

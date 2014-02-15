@@ -1,4 +1,4 @@
-var   cheerio = require('cheerio')
+var	  cheerio = require('cheerio')
 	, _       = require('underscore')
 ;
 
@@ -12,7 +12,7 @@ Toc.prototype = function()
 {
 	var generate = function()
 	{
-		var   self         = this
+		var	  self         = this
 			, headings     = []
 			, nodes        = []
 			, currentNode  = null

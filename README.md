@@ -58,7 +58,7 @@ var html = '<h1 id="1a">1st-level header</h1><p>foo</p>'
 	+ '<h3 id="3b">A 3rd level header</h3><p>bar bar</p>'
 	+ '<h2 id="2c">Another 2nd-level header</h2><p>foobar</p>';
 
-var content = require('toq')(html, true).content
+var contents = require('toq')(html, true).contents
 
 ```
 
@@ -90,7 +90,7 @@ Indented for better readability.
 
 ### Example - Toc + section numbers
 
-Table of content and section numbered content:
+Table of contents and section numbered content:
 
 ``` javascript
 var html = '<h1 id="1a">1st-level header</h1><p>foo</p>'
@@ -99,7 +99,7 @@ var html = '<h1 id="1a">1st-level header</h1><p>foo</p>'
 	+ '<h2 id="2c">Another 2nd-level header</h2><p>foobar</p>';
 
 var toq = require('toq')(html, true);
-console.log(toq.toc + toq.content);
+console.log(toq.toc + toq.contents);
 
 ```
 

@@ -2,8 +2,11 @@ var	  cheerio = require('cheerio')
 	, _       = require('underscore')
 ;
 
-var Toc = function(text, options)
+var Toq = function(text, options)
 {
+	if (_.isEmpty(options))
+		options = {};
+
 	_.defaults(options, {
 		  sectionNumbers: false
 		, flat: false
@@ -16,7 +19,7 @@ var Toc = function(text, options)
 	this.generate();
 };
 
-Toc.prototype = function()
+Toq.prototype = function()
 {
 	var generate = function()
 	{
@@ -111,6 +114,6 @@ Toc.prototype = function()
 
 module.exports = function(text, sectionNumbers)
 {
-	var toc = new Toc(text, sectionNumbers);
-	return toc.html();
+	var toq = new Toq(text, sectionNumbers);
+	return toq.html();
 };

@@ -30,24 +30,6 @@ var toc = require('toq')(html).toc;
 Output:
 
 ``` html
-<ol>
-	<li><span>1</span> <a href="#1a">1st-level header</a></li>
-	<li>
-		<ol>
-			<li><span>1.1</span> <a href="#2a">A 2nd-level header</a></li>
-			<li><span>1.2</span> <a href="#2b">A 2nd-level header</a></li>
-			<li><span>1.3</span> <a href="#2b">A 2nd-level header</a></li>
-			<li>
-				<ol>
-					<li><span>1.3.1</span> <a href="#3a">A 3rd level header</a></li>
-					<li><span>1.3.2</span> <a href="#3b">A 3rd level header</a></li>
-				</ol>
-			</li>
-			<li><span>1.4</span> <a href="#2c">Another 2nd-level header</a></li>
-		</ol>
-	</li>
-</ol>
-
 <nav class="toq">
 	<ol class="nav">
 		<li class="toq-level-1">

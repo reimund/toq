@@ -2,15 +2,17 @@ var	  cheerio = require('cheerio')
 	, _       = require('underscore')
 ;
 
-var Toc = function(text, sectionNumbers)
+var Toc = function(text, options)
 {
-	if (!_.isBoolean(sectionNumbers))
-		this.sectionNumbers = false;
-	else
-		this.sectionNumbers = sectionNumbers;
-
-	this.text = text;
-	this.$ = cheerio.load(text);
+	_.defaults(options, {
+		  sectionNumbers: false
+		, flat: false
+	});
+	
+	this.sectionNumbers = options.sectionNumbers;
+	this.flat           = options.flat;
+	this.text           = text;
+	this.$              = cheerio.load(text);
 	this.generate();
 };
 
@@ -65,22 +67,22 @@ Toc.prototype = function()
 
 		});
 
-		this.toc = listify.call(self, headings, false);
+		this.toc = '<nav class="toq"><ol class="nav">' + listify.call(self, headings, true, 1) + '</ol></nav>';
 	};
 
-	var listify = function(item, isDeep)
+	var listify = function(item, isDeep, level)
 	{
 		var html = '';
 
 		if (_.isArray(item))
 		{
-			html += (isDeep ? '<li>' : '') + '<ol>';
+			html += (isDeep ? '<li class="toq-level-' + level + '">' : '') + (this.flat ? '' : '<ol>');
 			for (i in item)
-				html += listify.call(this, item[i], true);
+				html += listify.call(this, item[i], true, level + 1);
 
-			html += '</ol>' + (isDeep ? '</li>' : '');
+			html += (this.flat ? '' : '</ol>') + (isDeep ? '</li>' : '');
 		} else {
-			html += '<li>' + headingLink.call(this, item.el, item.ref) + '</li>';
+			html += '<li class="toq-level-' + level + '">' + headingLink.call(this, item.el, item.ref) + '</li>';
 		}
 
 		return html;

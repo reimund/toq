@@ -52,17 +52,20 @@ Toq.prototype = function()
 			// Heading on same level.
 			else if (level == prevLevel)
 			{
-				ref = _.clone(ref);
+				ref                 = _.clone(ref);
 				ref[ref.length - 1] = _.last(ref) + 1;
 				currentNode.push({ el: heading, ref: ref });
 			}
 			// Shallower heading.
 			else
 			{
-				nodes.pop();
-				currentNode = _.last(nodes);
-				prevNode = currentNode[currentNode.length - 2];
-				ref = _.clone(prevNode.ref);
+				while(level < prevLevel) {
+					var last  = nodes.pop();
+					prevLevel = last[0].el.name[1] - 1;
+				}
+				currentNode         = _.last(nodes);
+				prevNode            = currentNode[currentNode.length - 2];
+				ref                 = _.clone(prevNode.ref);
 				ref[ref.length - 1] = _.last(ref) + 1;
 				currentNode.push({ el: heading, ref: ref });
 			}

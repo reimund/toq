@@ -1,8 +1,8 @@
-var	  cheerio = require('cheerio')
-	, _       = require('underscore')
+let	  cheerio = require('cheerio')
+	, _       = require('lodash')
 ;
 
-var Toq = function(text, options) {
+let Toq = function(text, options) {
 	if (_.isEmpty(options))
 		options = {};
 
@@ -19,8 +19,8 @@ var Toq = function(text, options) {
 };
 
 Toq.prototype = function() {
-	var generate = function() {
-		var	  self         = this
+	let generate = function() {
+		let	  self         = this
 			, headings     = []
 			, nodes        = []
 			, currentNode  = null
@@ -29,7 +29,7 @@ Toq.prototype = function() {
 		;
 		
 		this.$('h1, h2, h3, h4, h5').each(function(i, heading) {
-			var level = heading.name[1];
+			let level = heading.name[1];
 			
 			// Deeper heading.
 			if (level > prevLevel) {
@@ -54,7 +54,7 @@ Toq.prototype = function() {
 			// Shallower heading.
 			else {
 				while(level < prevLevel) {
-					var last  = nodes.pop();
+					let last  = nodes.pop();
 					prevLevel = last[0].el.name[1] - 1;
 				}
 				currentNode         = _.last(nodes);
@@ -67,12 +67,12 @@ Toq.prototype = function() {
 
 		});
 
-		var list = listify.call(self, headings, true, 1);
+		const list = listify.call(self, headings, true, 1);
 		this.toc = list === '' ? '' : '<nav class="toq"><ol class="nav">' + list  + '</ol></nav>';
 	};
 
-	var listify = function(item, isDeep, level) {
-		var html = '';
+	const listify = function(item, isDeep, level) {
+		let html = '';
 
 		if (_.isArray(item)) {
 			if (item.length === 0) {
@@ -88,15 +88,15 @@ Toq.prototype = function() {
 			html += (this.flat ? '' : '</ol>') + (isDeep ? '</li>' : '');
 		}
 		else {
-			var link = headingLink.call(this, item.el, item.ref);
+			const link = headingLink.call(this, item.el, item.ref);
 			html += '<li class="toq-level-' + level + '">' + link + '</li>';
 		}
 
 		return html;
 	};
 
-	var headingLink = function(heading, ref) {
-		var html = '<span>' + ref.join('.') + '</span> <a href="#' + this.$(heading).attr('id') + '">' + this.$(heading).html() + '</a>';
+	const headingLink = function(heading, ref) {
+		let html = '<span>' + ref.join('.') + '</span> <a href="#' + this.$(heading).attr('id') + '">' + this.$(heading).html() + '</a>';
 		
 		if (this.sectionNumbers)
 			this.$(heading).html('<span class="section-number">' + ref.join('.') + '</span> ' + this.$(heading).html());
@@ -104,7 +104,7 @@ Toq.prototype = function() {
 		return html;
 	};
 
-	var _html = function() {
+	const _html = function() {
 		return { toc: this.toc, contents: this.$.html() }
 	}
 
@@ -115,6 +115,6 @@ Toq.prototype = function() {
 }();
 
 module.exports = function(text, sectionNumbers) {
-	var toq = new Toq(text, sectionNumbers);
+	let toq = new Toq(text, sectionNumbers);
 	return toq.html();
 };

@@ -73,7 +73,8 @@ Toq.prototype = function()
 
 		});
 
-		this.toc = '<nav class="toq"><ol class="nav">' + listify.call(self, headings, true, 1) + '</ol></nav>';
+		var list = listify.call(self, headings, true, 1);
+		this.toc = list === '' ? '' : '<nav class="toq"><ol class="nav">' + list  + '</ol></nav>';
 	};
 
 	var listify = function(item, isDeep, level)
@@ -82,6 +83,9 @@ Toq.prototype = function()
 
 		if (_.isArray(item))
 		{
+			if (item.length === 0) {
+				return '';
+			}
 			html += (isDeep ? '<li class="toq-level-' + level + '">' : '') + (this.flat ? '' : '<ol>');
 			for (i in item)
 				html += listify.call(this, item[i], true, level + 1);

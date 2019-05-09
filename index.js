@@ -2,8 +2,7 @@ var	  cheerio = require('cheerio')
 	, _       = require('underscore')
 ;
 
-var Toq = function(text, options)
-{
+var Toq = function(text, options) {
 	if (_.isEmpty(options))
 		options = {};
 
@@ -19,10 +18,8 @@ var Toq = function(text, options)
 	this.generate();
 };
 
-Toq.prototype = function()
-{
-	var generate = function()
-	{
+Toq.prototype = function() {
+	var generate = function() {
 		var	  self         = this
 			, headings     = []
 			, nodes        = []
@@ -35,8 +32,7 @@ Toq.prototype = function()
 			var level = heading.name[1];
 			
 			// Deeper heading.
-			if (level > prevLevel)
-			{
+			if (level > prevLevel) {
 				if (0 == headings.length) {
 					ref = [1];
 					headings.push({ el: heading, ref: ref });
@@ -50,15 +46,13 @@ Toq.prototype = function()
 				nodes.push(currentNode)
 			}
 			// Heading on same level.
-			else if (level == prevLevel)
-			{
+			else if (level == prevLevel) {
 				ref                 = _.clone(ref);
 				ref[ref.length - 1] = _.last(ref) + 1;
 				currentNode.push({ el: heading, ref: ref });
 			}
 			// Shallower heading.
-			else
-			{
+			else {
 				while(level < prevLevel) {
 					var last  = nodes.pop();
 					prevLevel = last[0].el.name[1] - 1;
@@ -77,29 +71,31 @@ Toq.prototype = function()
 		this.toc = list === '' ? '' : '<nav class="toq"><ol class="nav">' + list  + '</ol></nav>';
 	};
 
-	var listify = function(item, isDeep, level)
-	{
+	var listify = function(item, isDeep, level) {
 		var html = '';
 
-		if (_.isArray(item))
-		{
+		if (_.isArray(item)) {
 			if (item.length === 0) {
 				return '';
 			}
+
 			html += (isDeep ? '<li class="toq-level-' + level + '">' : '') + (this.flat ? '' : '<ol>');
-			for (i in item)
+
+			for (i in item) {
 				html += listify.call(this, item[i], true, level + 1);
+			}
 
 			html += (this.flat ? '' : '</ol>') + (isDeep ? '</li>' : '');
-		} else {
-			html += '<li class="toq-level-' + level + '">' + headingLink.call(this, item.el, item.ref) + '</li>';
+		}
+		else {
+			var link = headingLink.call(this, item.el, item.ref);
+			html += '<li class="toq-level-' + level + '">' + link + '</li>';
 		}
 
 		return html;
 	};
 
-	var headingLink = function(heading, ref)
-	{
+	var headingLink = function(heading, ref) {
 		var html = '<span>' + ref.join('.') + '</span> <a href="#' + this.$(heading).attr('id') + '">' + this.$(heading).html() + '</a>';
 		
 		if (this.sectionNumbers)
@@ -108,8 +104,7 @@ Toq.prototype = function()
 		return html;
 	};
 
-	var _html = function()
-	{
+	var _html = function() {
 		return { toc: this.toc, contents: this.$.html() }
 	}
 
@@ -119,8 +114,7 @@ Toq.prototype = function()
 	};
 }();
 
-module.exports = function(text, sectionNumbers)
-{
+module.exports = function(text, sectionNumbers) {
 	var toq = new Toq(text, sectionNumbers);
 	return toq.html();
 };

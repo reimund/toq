@@ -20,12 +20,12 @@ let Toq = function(text, options) {
 
 Toq.prototype = function() {
 	let generate = function() {
-		let	  self         = this
-			, headings     = []
-			, nodes        = []
-			, currentNode  = null
-			, prevLevel    = 0
-			, label        = null
+		let  self         = this
+		   , headings     = []
+		   , nodes        = []
+		   , currentNode  = null
+		   , prevLevel    = 0
+		   , label        = null
 		;
 		
 		this.$('h1, h2, h3, h4, h5').each(function(i, heading) {
@@ -37,34 +37,39 @@ Toq.prototype = function() {
 					ref = [1];
 					headings.push({ el: heading, ref: ref });
 					currentNode = headings;
-				} else {
+				}
+				else {
 					ref = _.clone(ref);
 					ref.push(1);
 					currentNode.push([{ el: heading, ref: ref }]);
 					currentNode = _.last(currentNode);
 				}
+
 				nodes.push(currentNode)
 			}
 			// Heading on same level.
 			else if (level == prevLevel) {
 				ref                 = _.clone(ref);
 				ref[ref.length - 1] = _.last(ref) + 1;
+
 				currentNode.push({ el: heading, ref: ref });
 			}
 			// Shallower heading.
 			else {
-				while(level < prevLevel) {
+				while (level < prevLevel) {
 					let last  = nodes.pop();
 					prevLevel = last[0].el.name[1] - 1;
 				}
+
 				currentNode         = _.last(nodes);
 				prevNode            = currentNode[currentNode.length - 2];
 				ref                 = _.clone(prevNode.ref);
 				ref[ref.length - 1] = _.last(ref) + 1;
+
 				currentNode.push({ el: heading, ref: ref });
 			}
-			prevLevel = level;
 
+			prevLevel = level;
 		});
 
 		const list = listify.call(self, headings, true, 1);

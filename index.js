@@ -33,7 +33,7 @@ Toq.prototype = function() {
 			
 			// Deeper heading.
 			if (level > prevLevel) {
-				if (0 == headings.length) {
+				if (headings.length === 0) {
 					ref = [1];
 					headings.push({ el: heading, ref: ref });
 					currentNode = headings;
@@ -48,7 +48,7 @@ Toq.prototype = function() {
 				nodes.push(currentNode)
 			}
 			// Heading on same level.
-			else if (level == prevLevel) {
+			else if (level === prevLevel) {
 				ref                 = _.clone(ref);
 				ref[ref.length - 1] = _.last(ref) + 1;
 
@@ -61,12 +61,13 @@ Toq.prototype = function() {
 					prevLevel = last[0].el.name[1] - 1;
 				}
 
-				currentNode         = _.last(nodes);
-				prevNode            = currentNode[currentNode.length - 2];
-				ref                 = _.clone(prevNode.ref);
-				ref[ref.length - 1] = _.last(ref) + 1;
+				if (currentNode = _.last(nodes)) {
+					prevNode            = currentNode[Math.max(currentNode.length - 2, 0)];
+					ref                 = _.clone(prevNode.ref);
+					ref[ref.length - 1] = _.last(ref) + 1;
 
-				currentNode.push({ el: heading, ref: ref });
+					currentNode.push({ el: heading, ref: ref });
+				}
 			}
 
 			prevLevel = level;

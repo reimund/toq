@@ -21,7 +21,7 @@
   "dependencies": {
     "cheerio": "~0.13.1",
     "lodash": "^4.17.11",
-    "underscore": "~1.6.0"
+    "underscore": "~1.12.1"
   },
   "readmeFilename": "README.md",
   "gitHead": "81f60e1094b6275c48eebe2ea2cf38a0586c658d",
